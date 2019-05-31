@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.core:core:1.1.0-beta01@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/248f33880271e503e03a72f68eeb9037/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/67980a76866aee4f9fa8d60ad4a9eb4a/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/248f33880271e503e03a72f68eeb9037/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/248f33880271e503e03a72f68eeb9037/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/67980a76866aee4f9fa8d60ad4a9eb4a/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/67980a76866aee4f9fa8d60ad4a9eb4a/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

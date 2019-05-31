@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aungmyolwin.splasher.BuildConfig
 import com.aungmyolwin.splasher.Injector
 import com.aungmyolwin.splasher.R
 import com.aungmyolwin.splasher.vo.Status

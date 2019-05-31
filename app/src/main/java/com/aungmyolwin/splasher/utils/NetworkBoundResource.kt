@@ -58,12 +58,12 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     }*/
                     if (shouldSaveFetchedData()) {
                         saveCallResult(processResponse(response))
-                        result.addSource(loadFromDb()) {newData ->
+                        result.addSource(loadFromDb()) { newData ->
                             setValue(Resource.success(newData))
                         }
 
                     } else {
-                        result.addSource(apiResponse){
+                        result.addSource(apiResponse) {
                             setValue(Resource.success(processResponse(response)))
                         }
                     }
