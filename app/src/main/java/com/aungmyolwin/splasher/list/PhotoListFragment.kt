@@ -33,7 +33,7 @@ class PhotoListFragment : Fragment() {
         val factory = Injector.provideViewModelFactory()
         val viewModels = ViewModelProviders.of(this, factory).get(PhotoListViewModels::class.java)
 
-        viewModels.setClient(BuildConfig.ACCESS_KEY)
+        viewModels.setClient(/*BuildConfig.ACCESS_KEY*/"some key")
 
         viewModels.photos.observe(this, Observer {
             if (it.status == Status.LOADING) {
