@@ -1,6 +1,9 @@
 package com.aungmyolwin.splasher
 
 import android.app.Application
+import com.aungmyolwin.splasher.di.networkModule
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
 import timber.log.Timber
 
 /**
@@ -8,7 +11,11 @@ import timber.log.Timber
  *     made with <3
  */
 
-class SplasherApp : Application() {
+class SplasherApp : Application(), KodeinAware {
+    override val kodein by Kodein.lazy {
+        import(networkModule)
+    }
+
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {

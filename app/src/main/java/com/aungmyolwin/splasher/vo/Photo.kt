@@ -29,34 +29,3 @@ data class Photo(
         var urls: Urls)
 
 
-/*
-* @SerializedName("id")
-@Expose
-private String id;
-@SerializedName("created_at")
-@Expose
-private String createdAt;
-@SerializedName("updated_at")
-@Expose
-private String updatedAt;
-@SerializedName("width")
-@Expose
-private Integer width;
-@SerializedName("height")
-@Expose
-private Integer height;
-@SerializedName("color")
-@Expose
-private String color;
-@SerializedName("description")
-@Expose
-private Object description;
-@SerializedName("urls")
-@Expose
-private Urls urls;
-@SerializedName("links")
-@Expose
-private Links links;
-@SerializedName("categories")
-@Expose
-private List<Object> categories = null;*/
