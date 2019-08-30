@@ -15,7 +15,8 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     ActivityBindingModule::class,
     AppModule::class,
-    ViewModelModule::class
+    ViewModelModule::class,
+    NetworkModule::class
 ])
 interface AppComponent : AndroidInjector<SplasherApp> {
     @Component.Builder

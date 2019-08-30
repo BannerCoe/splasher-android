@@ -1,4 +1,4 @@
-package com.aungmyolwin.splasher.list
+package com.aungmyolwin.splasher.ui.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,13 +10,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * a touch of AungMyoLwin on 7/31/18.
  *     made with <3
  */
 
-class PhotoListViewModels(loadAllPhotoUseCase: LoadAllPhotoUseCase) : ViewModel() {
+class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoUseCase) : ViewModel() {
 
     private val vmJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + vmJob)
@@ -33,6 +34,6 @@ class PhotoListViewModels(loadAllPhotoUseCase: LoadAllPhotoUseCase) : ViewModel(
     }
 
     override fun onCleared() {
-        vmJob.cancel();
+        vmJob.cancel()
     }
 }

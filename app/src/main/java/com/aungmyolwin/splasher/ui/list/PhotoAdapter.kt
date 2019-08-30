@@ -1,4 +1,4 @@
-package com.aungmyolwin.splasher.list
+package com.aungmyolwin.splasher.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,20 +12,20 @@ import com.aungmyolwin.splasher.vo.Photo
  */
 
 class PhotoAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
-    private var photoList: List<Photo>? = ArrayList()
+    private var photoList = mutableListOf<Photo>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         return PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_photo, parent, false))
     }
 
-    override fun getItemCount(): Int = photoList?.size ?: 0
-
+    override fun getItemCount(): Int = photoList.size
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind(photoList?.get(position))
+        holder.bind(photoList[position])
     }
 
     fun setPhotos(photoList: List<Photo>) {
-        this.photoList = photoList
+        this.photoList.addAll(photoList)
         notifyDataSetChanged()
     }
 }

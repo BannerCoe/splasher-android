@@ -1,24 +1,29 @@
-package com.aungmyolwin.splasher.list
+package com.aungmyolwin.splasher.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aungmyolwin.splasher.R
 import com.aungmyolwin.splasher.vo.Result
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_photo_list.*
+import javax.inject.Inject
 
 /**
  * a touch of AungMyoLwin on 7/31/18.
  *     made with <3
  */
 
-class PhotoListFragment : Fragment() {
+class PhotoListFragment : DaggerFragment() {
     private val adapter = PhotoAdapter()
+
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -27,12 +32,10 @@ class PhotoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val viewModels = ViewModelProviders.of(this, vmFactory).get(PhotoListViewModels::class.java)
+
         initAdapter()
-
-
-        val viewModels = ViewModelProviders.of(this).get(PhotoListViewModels::class.java)
-
-        //viewModels.setClient(/*BuildConfig.ACCESS_KEY*/"some key")
 
         viewModels.photos.observe(this, Observer {
             when (it) {

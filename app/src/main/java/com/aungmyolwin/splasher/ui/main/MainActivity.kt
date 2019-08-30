@@ -1,6 +1,7 @@
-package com.aungmyolwin.splasher
+package com.aungmyolwin.splasher.ui.main
 
 import android.os.Bundle
+import com.aungmyolwin.splasher.R
 import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity() {
