@@ -1,9 +1,8 @@
 package com.aungmyolwin.splasher
 
-import android.app.Application
-import com.aungmyolwin.splasher.di.networkModule
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
+import com.aungmyolwin.splasher.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import timber.log.Timber
 
 /**
@@ -11,9 +10,9 @@ import timber.log.Timber
  *     made with <3
  */
 
-class SplasherApp : Application(), KodeinAware {
-    override val kodein by Kodein.lazy {
-        import(networkModule)
+class SplasherApp : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().create(this)
     }
 
     override fun onCreate() {

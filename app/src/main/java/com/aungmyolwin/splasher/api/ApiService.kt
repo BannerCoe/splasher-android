@@ -1,7 +1,7 @@
 package com.aungmyolwin.splasher.api
 
-import androidx.lifecycle.LiveData
 import com.aungmyolwin.splasher.vo.Photo
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,5 +12,5 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("/photos")
-    fun getPhoto(@Query("client_id") clientId: String): LiveData<ApiResponse<List<Photo>>>
+    suspend fun getPhoto(@Query("client_id") clientId: String): Response<List<Photo>>
 }

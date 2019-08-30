@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aungmyolwin.splasher.Injector
 import com.aungmyolwin.splasher.R
-import com.aungmyolwin.splasher.vo.Status
+import com.aungmyolwin.splasher.vo.Result
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 
 /**
@@ -29,18 +28,16 @@ class PhotoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
-        val factory = Injector.provideViewModelFactory()
-        val viewModels = ViewModelProviders.of(this, factory).get(PhotoListViewModels::class.java)
 
-        viewModels.setClient(/*BuildConfig.ACCESS_KEY*/"some key")
+
+        val viewModels = ViewModelProviders.of(this).get(PhotoListViewModels::class.java)
+
+        //viewModels.setClient(/*BuildConfig.ACCESS_KEY*/"some key")
 
         viewModels.photos.observe(this, Observer {
-            if (it.status == Status.LOADING) {
-                //Todo show loading here
+            when (it) {
+                is Result.Success -> adapter.setPhotos(it.data)
             }
-
-            if (it.status == Status.SUCCESS && it.data != null)
-                adapter.setPhotos(it.data)
 
         })
 

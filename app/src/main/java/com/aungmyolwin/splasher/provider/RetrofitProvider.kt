@@ -22,7 +22,8 @@ fun provideOkHttpClient(): OkHttpClient {
     return httpClient.build()
 }
 
-fun providePhotoApiService(client: OkHttpClient, baseUrl: String): ApiService {
+fun providePhotoApiService(client: OkHttpClient): ApiService {
+    val baseUrl = "https://api.unsplash.com/"
     val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
