@@ -1,5 +1,6 @@
 package com.aungmyolwin.splasher.domain.photos
 
+import com.aungmyolwin.splasher.BuildConfig
 import com.aungmyolwin.splasher.data.photos.PhotoRepositoryImpl
 import javax.inject.Inject
 
@@ -10,5 +11,5 @@ import javax.inject.Inject
 class LoadAllPhotoUseCase @Inject constructor(
         private val repository: PhotoRepositoryImpl
 ) {
-    suspend fun execute() = repository.getAllPhotos()
+    suspend fun execute() = repository.getAllPhotos(BuildConfig.ACCESS_KEY)
 }

@@ -8,5 +8,5 @@ import com.aungmyolwin.splasher.vo.Result
  * made with <3
  */
 interface PhotoRepository {
-    suspend fun getAllPhotos(): Result<List<Photo>>
+    suspend fun getAllPhotos(clientId: String): Result<List<Photo>>
 }

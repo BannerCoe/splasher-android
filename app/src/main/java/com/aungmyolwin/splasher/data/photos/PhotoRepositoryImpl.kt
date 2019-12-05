@@ -1,6 +1,5 @@
 package com.aungmyolwin.splasher.data.photos
 
-import com.aungmyolwin.splasher.BuildConfig
 import javax.inject.Inject
 
 /**
@@ -11,5 +10,5 @@ class PhotoRepositoryImpl @Inject constructor(
         private val remoteDataSource: PhotoRemoteDataSource
 ) : PhotoRepository {
 
-    override suspend fun getAllPhotos() = remoteDataSource.getAllPhotos(BuildConfig.ACCESS_KEY)
+    override suspend fun getAllPhotos(clientId: String) = remoteDataSource.getAllPhotos(clientId)
 }
