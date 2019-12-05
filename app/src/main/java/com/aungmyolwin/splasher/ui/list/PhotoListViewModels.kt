@@ -22,13 +22,29 @@ class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoU
     private val vmJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + vmJob)
 
-    private val _photos = MutableLiveData<Result<List<Photo>>>()
-    val photos: LiveData<Result<List<Photo>>> get() = _photos
+    private val _photos = MutableLiveData<List<Photo>>()
+    val photos: LiveData<List<Photo>> get() = _photos
+
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading: LiveData<Boolean> get() = _loading
 
     init {
         uiScope.launch {
-            _photos.value = Result.Loading
-            _photos.value = loadAllPhotoUseCase.execute()
+            _loading.value = true
+            val rawPhotos = loadAllPhotoUseCase.execute()
+            when (rawPhotos) {
+                is Result.Success -> {
+                    _loading.value = false
+                    _photos.value = rawPhotos.data
+                }
+                is Result.Loading -> {
+                    _loading.value = true
+                }
+                else -> {
+                    //do for error
+                }
+
+            }
         }
 
     }

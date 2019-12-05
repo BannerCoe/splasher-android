@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aungmyolwin.splasher.R
-import com.aungmyolwin.splasher.vo.Result
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 import javax.inject.Inject
@@ -33,15 +32,16 @@ class PhotoListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModels = ViewModelProviders.of(this, vmFactory).get(PhotoListViewModels::class.java)
+        val vm = ViewModelProviders.of(this, vmFactory).get(PhotoListViewModels::class.java)
 
         initAdapter()
 
-        viewModels.photos.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Result.Success -> adapter.setPhotos(it.data)
-            }
+        vm.photos.observe(viewLifecycleOwner, Observer {
+            adapter.setPhotos(it)
+        })
 
+        vm.loading.observe(viewLifecycleOwner, Observer {
+            pb_loading.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
 
     }
