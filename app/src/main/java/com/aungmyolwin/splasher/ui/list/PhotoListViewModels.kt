@@ -3,12 +3,10 @@ package com.aungmyolwin.splasher.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.aungmyolwin.splasher.domain.photos.LoadAllPhotoUseCase
 import com.aungmyolwin.splasher.vo.Photo
 import com.aungmyolwin.splasher.vo.Result
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,8 +17,8 @@ import javax.inject.Inject
 
 class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoUseCase) : ViewModel() {
 
-    private val vmJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + vmJob)
+    /*private val vmJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + vmJob)*/
 
     private val _photos = MutableLiveData<List<Photo>>()
     val photos: LiveData<List<Photo>> get() = _photos
@@ -29,7 +27,8 @@ class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoU
     val loading: LiveData<Boolean> get() = _loading
 
     init {
-        uiScope.launch {
+        //uiScope.launch {
+        viewModelScope.launch {
             _loading.value = true
             val rawPhotos = loadAllPhotoUseCase.execute()
             when (rawPhotos) {
@@ -49,7 +48,7 @@ class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoU
 
     }
 
-    override fun onCleared() {
-        vmJob.cancel()
-    }
+//    override fun onCleared() {
+//        vmJob.cancel()
+//    }
 }

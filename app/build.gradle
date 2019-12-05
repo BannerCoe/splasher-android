@@ -31,12 +31,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
 
     def paging_version = "1.0.1"
-    def lifecycle_version = "2.1.0"
+    def lifecycle_version = "2.2.0-rc03"
     def nav_version = "2.2.0-rc03"
     def retrofit_version = "2.6.1"
     def timber_version = "4.7.1"
@@ -54,7 +58,8 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // use kapt for Kotlin
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version" // use -ktx for Kotlin
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version" // use -ktx for Kotlin
@@ -78,7 +83,7 @@ dependencies {
     testImplementation "android.arch.paging:common:$paging_version"
 
     // optional - Test helpers for LiveData
-    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     //dagger
     api 'com.google.dagger:dagger:2.25.2'
