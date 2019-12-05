@@ -8,6 +8,10 @@ apply plugin: "androidx.navigation.safeargs"
 
 apply plugin: "kotlin-kapt"
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -18,7 +22,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        //buildConfigField "String", "ACCESS_KEY", client_id
+        buildConfigField "String", "ACCESS_KEY", apikeyProperties['client_id']
 
     }
     buildTypes {
@@ -75,5 +79,13 @@ dependencies {
 
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+
+    //dagger
+    api 'com.google.dagger:dagger:2.25.2'
+    kapt 'com.google.dagger:dagger-compiler:2.25.2'
+
+    api 'com.google.dagger:dagger-android:2.25.2'
+    api 'com.google.dagger:dagger-android-support:2.25.2' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-android-processor:2.25.2'
 
 }

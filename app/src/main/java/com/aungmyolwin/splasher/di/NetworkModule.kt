@@ -22,7 +22,8 @@ class NetworkModule {
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build().create(ApiService::class.java)
+                .build()
+                .create(ApiService::class.java)
     }
 
     @Provides
