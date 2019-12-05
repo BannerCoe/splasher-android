@@ -37,7 +37,7 @@ class PhotoListFragment : DaggerFragment() {
 
         initAdapter()
 
-        viewModels.photos.observe(this, Observer {
+        viewModels.photos.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> adapter.setPhotos(it.data)
             }
