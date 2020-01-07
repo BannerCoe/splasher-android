@@ -1,10 +1,8 @@
 package com.aungmyolwin.splasher.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.aungmyolwin.splasher.domain.photos.LoadAllPhotoUseCase
+import com.aungmyolwin.splasher.utils.Event
 import com.aungmyolwin.splasher.vo.Photo
 import com.aungmyolwin.splasher.vo.Result
 import kotlinx.coroutines.launch
@@ -17,38 +15,26 @@ import javax.inject.Inject
 
 class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoUseCase) : ViewModel() {
 
-    /*private val vmJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + vmJob)*/
+    var rawResponse = MediatorLiveData<Result<List<Photo>>>()
 
-    private val _photos = MutableLiveData<List<Photo>>()
-    val photos: LiveData<List<Photo>> get() = _photos
-
-    private val _loading = MutableLiveData<Boolean>(true)
-    val loading: LiveData<Boolean> get() = _loading
-
-    init {
-        //uiScope.launch {
-        viewModelScope.launch {
-            _loading.value = true
-            val rawPhotos = loadAllPhotoUseCase.execute()
-            when (rawPhotos) {
-                is Result.Success -> {
-                    _loading.value = false
-                    _photos.value = rawPhotos.data
-                }
-                is Result.Loading -> {
-                    _loading.value = true
-                }
-                else -> {
-                    //do for error
-                }
-
-            }
-        }
-
+    val photos: LiveData<List<Photo>> = Transformations.map(rawResponse) {
+        (it as? Result.Success)?.data
     }
 
-//    override fun onCleared() {
-//        vmJob.cancel()
-//    }
+    val loading: LiveData<Boolean> = Transformations.map(rawResponse) {
+        (it is Result.Loading)
+    }
+
+    val errorMessage: LiveData<Event<String>> = Transformations.map(rawResponse) {
+        Event(content = (it as? Result.Error)?.exception?.localizedMessage ?: "")
+    }
+
+    init {
+        viewModelScope.launch {
+            rawResponse.addSource(loadAllPhotoUseCase.execute()) {
+                rawResponse.value = it
+            }
+        }
+    }
+
 }

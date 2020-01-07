@@ -56,10 +56,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    //implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"\
+
+    //livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03"
+
+    //viewmodel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03"
 
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    //implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version" // use -ktx for Kotlin
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version" // use -ktx for Kotlin

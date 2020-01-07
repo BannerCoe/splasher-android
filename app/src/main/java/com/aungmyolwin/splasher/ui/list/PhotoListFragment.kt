@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_photo_list.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -42,6 +43,10 @@ class PhotoListFragment : DaggerFragment() {
 
         vm.loading.observe(viewLifecycleOwner, Observer {
             pb_loading.visibility = if (it) View.VISIBLE else View.INVISIBLE
+        })
+
+        vm.errorMessage.observe(viewLifecycleOwner, Observer {
+            Timber.d("banner: error found ${it.getContentIfNotHandled()}")
         })
 
     }
