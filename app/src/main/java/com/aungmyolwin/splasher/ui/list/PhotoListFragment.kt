@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
@@ -33,7 +32,7 @@ class PhotoListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vm = ViewModelProviders.of(this, vmFactory).get(PhotoListViewModels::class.java)
+        val vm = ViewModelProvider(this, vmFactory).get(PhotoListViewModels::class.java)
 
         initAdapter()
 

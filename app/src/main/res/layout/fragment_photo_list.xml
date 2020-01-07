@@ -6,7 +6,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="?attr/actionBarSize">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
