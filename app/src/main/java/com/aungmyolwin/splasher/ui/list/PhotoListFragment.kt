@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_photo_list.*
@@ -47,7 +48,9 @@ class PhotoListFragment : DaggerFragment() {
     }
 
     private fun initAdapter() {
-        rv_photo_list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val gridItemDecoration = GridItemDecoration(requireContext())
+        rv_photo_list.layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
+        rv_photo_list.addItemDecoration(gridItemDecoration)
         rv_photo_list.adapter = adapter
     }
 
