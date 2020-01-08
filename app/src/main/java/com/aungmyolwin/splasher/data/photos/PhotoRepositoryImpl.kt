@@ -20,17 +20,20 @@ interface PhotoRepository {
 class PhotoRepositoryImpl @Inject constructor(
         private val remoteDataSource: PhotoRemoteDataSource
 ) : PhotoRepository {
-    override suspend fun getAllPhotos(clientId: String) = liveData {
+    override suspend fun getAllPhotos(clientId: String): LiveData<Result<List<Photo>>> {
+        return liveData {
 
-        emit(Result.Loading)
+            emit(Result.Loading)
 
-        val response = withContext(Dispatchers.IO) {
-            remoteDataSource.getAllPhotos(clientId)
-        }
-        if (response.isSuccessful) {
-            emit(Result.Success(response.body() ?: emptyList()))
-        } else {
-            emit(Result.Error(Exception(response.message())))
+            val response = withContext(Dispatchers.IO) {
+                remoteDataSource.getAllPhotos(clientId)
+            }
+
+            if (response.isSuccessful && response.code() == 200) {
+                emit(Result.Success(response.body() ?: emptyList()))
+            } else {
+                emit(Result.Error(Exception(response.code().toString())))
+            }
         }
     }
 }

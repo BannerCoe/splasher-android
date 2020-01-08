@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 import timber.log.Timber
@@ -38,15 +39,20 @@ class PhotoListFragment : DaggerFragment() {
         initAdapter()
 
         vm.photos.observe(viewLifecycleOwner, Observer {
-            adapter.setPhotos(it)
+            Timber.d("banner: photos is $it")
+            if (it != null)
+                adapter.setPhotos(it)
         })
 
         vm.loading.observe(viewLifecycleOwner, Observer {
-            pb_loading.visibility = if (it) View.VISIBLE else View.INVISIBLE
+            Timber.d("banner: loading...:$it")
+            pb_loading.visibility = if (it) View.VISIBLE else View.GONE
         })
 
         vm.errorMessage.observe(viewLifecycleOwner, Observer {
-            Timber.d("banner: error found ${it.getContentIfNotHandled()}")
+            Timber.d("banner: error found ${it.peekContent()}")
+            if (it.peekContent() != "")
+                Snackbar.make(cl_root_layout, it.getContentIfNotHandled().toString(), Snackbar.LENGTH_SHORT).show()
         })
 
     }

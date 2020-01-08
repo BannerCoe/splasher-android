@@ -14,5 +14,13 @@ import javax.inject.Inject
 class LoadAllPhotoUseCase @Inject constructor(
         private val repository: PhotoRepositoryImpl
 ) {
-    suspend fun execute(): LiveData<Result<List<Photo>>> = repository.getAllPhotos(BuildConfig.ACCESS_KEY)
+    suspend fun execute(/*result: LiveData<Result<List<Photo>>>*/): LiveData<Result<List<Photo>>> {
+
+        /*result.addSource(repository.getAllPhotos(BuildConfig.ACCESS_KEY)) {
+
+            result.value = it
+        }*/
+        return repository.getAllPhotos(BuildConfig.ACCESS_KEY)
+
+    }
 }
