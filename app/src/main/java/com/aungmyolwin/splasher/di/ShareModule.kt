@@ -5,6 +5,7 @@ import com.aungmyolwin.splasher.data.photos.PhotoRemoteDataSource
 import com.aungmyolwin.splasher.data.photos.PhotoRemoteDataSourceImpl
 import com.aungmyolwin.splasher.data.photos.PhotoRepository
 import com.aungmyolwin.splasher.data.photos.PhotoRepositoryImpl
+import com.aungmyolwin.splasher.utils.ParserUtils
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -27,5 +28,11 @@ class ShareModule {
     @Provides
     fun providePhotoRemoteDataSource(apiService: ApiService): PhotoRemoteDataSource {
         return PhotoRemoteDataSourceImpl(apiService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideParserUils(): ParserUtils {
+        return ParserUtils()
     }
 }

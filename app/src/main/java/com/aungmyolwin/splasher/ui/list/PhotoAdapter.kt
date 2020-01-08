@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
+import com.aungmyolwin.splasher.utils.ParserUtils
 import com.aungmyolwin.splasher.vo.Photo
 
 /**
@@ -11,11 +12,12 @@ import com.aungmyolwin.splasher.vo.Photo
  *     made with <3
  */
 
-class PhotoAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
+class PhotoAdapter(private val parserUtils: ParserUtils) : RecyclerView.Adapter<PhotoViewHolder>() {
     private var photoList = mutableListOf<Photo>()
+    private lateinit var onClick: (String) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        return PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_photo, parent, false))
+        return PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_photo, parent, false), onClick, parserUtils = parserUtils)
     }
 
     override fun getItemCount(): Int = photoList.size
@@ -27,5 +29,9 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
     fun setPhotos(photoList: List<Photo>) {
         this.photoList.addAll(photoList)
         notifyDataSetChanged()
+    }
+
+    fun setOnPhotoClickListener(onClick: (String) -> Unit) {
+        this.onClick = onClick
     }
 }

@@ -23,4 +23,8 @@ abstract class PhotoListModule {
     @IntoMap
     @ViewModelKey(PhotoListViewModels::class)
     internal abstract fun bindPhotoListViewModel(vm: PhotoListViewModels): ViewModel
+
+    /*@Binds
+    @IntoMap
+    internal abstract fun binderAdapter(adapter: PhotoAdapter):RecyclerView.Adapter<RecyclerView.ViewHolder>*/
 }
