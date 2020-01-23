@@ -1,5 +1,6 @@
 package com.aungmyolwin.splasher.di
 
+import com.aungmyolwin.splasher.ui.detail.DetailModule
 import com.aungmyolwin.splasher.ui.list.PhotoListModule
 import com.aungmyolwin.splasher.ui.main.MainActivity
 import dagger.Module
@@ -14,7 +15,8 @@ abstract class ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [
-        PhotoListModule::class
+        PhotoListModule::class,
+        DetailModule::class
     ])
     internal abstract fun contributeMainActivity(): MainActivity
 

@@ -11,8 +11,8 @@ class ParserUtils {
 
     val gson = Gson()
 
-    fun stringtoObject() {
-
+    fun <T> stringToObject(rawString: String, type: Class<T>): T {
+        return gson.fromJson(rawString, type)
     }
 
     fun objectToString(sourceObject: Any): String {

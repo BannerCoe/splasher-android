@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
+import com.aungmyolwin.splasher.ui.main.MainActivity
 import com.aungmyolwin.splasher.utils.ParserUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
@@ -63,6 +64,7 @@ class PhotoListFragment : DaggerFragment() {
 
         adapter.setOnPhotoClickListener {
             Timber.d("banner: user click position: $it")
+            (activity as? MainActivity)?.go2Detail(it)
         }
 
     }
