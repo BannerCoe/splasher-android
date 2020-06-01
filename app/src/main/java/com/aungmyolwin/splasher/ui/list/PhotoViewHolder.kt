@@ -21,7 +21,8 @@ class PhotoViewHolder(itemView: View, onClick: (jsonObj: String) -> Unit, parser
         }
     }
 
-    fun bind(photo: Photo) {
+    fun bind(photo: Photo?) {
+        if (photo == null) return
         this.photo = photo
         Glide.with(itemView.context).load(this.photo.urls.small).into(itemView.iv_row_photo)
     }

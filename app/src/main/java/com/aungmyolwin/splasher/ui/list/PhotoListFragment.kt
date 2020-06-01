@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aungmyolwin.splasher.R
 import com.aungmyolwin.splasher.ui.main.MainActivity
 import com.aungmyolwin.splasher.utils.ParserUtils
-import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 import timber.log.Timber
@@ -45,21 +44,9 @@ class PhotoListFragment : DaggerFragment() {
         adapter = PhotoAdapter(parserUtils)
         initRecycler()
 
-        vm.photos.observe(viewLifecycleOwner, Observer {
-            Timber.d("banner: photos is $it")
-            if (it != null)
-                adapter.setPhotos(it)
-        })
 
-        vm.loading.observe(viewLifecycleOwner, Observer {
-            Timber.d("banner: loading...:$it")
-            pb_loading.visibility = if (it) View.VISIBLE else View.GONE
-        })
-
-        vm.errorMessage.observe(viewLifecycleOwner, Observer {
-            Timber.d("banner: error found ${it.peekContent()}")
-            if (it.peekContent() != "")
-                Snackbar.make(cl_root_layout, it.getContentIfNotHandled().toString(), Snackbar.LENGTH_SHORT).show()
+        vm.photos.observe(viewLifecycleOwner, Observer { photoPageList ->
+            adapter.submitList(photoPageList)
         })
 
         adapter.setOnPhotoClickListener {

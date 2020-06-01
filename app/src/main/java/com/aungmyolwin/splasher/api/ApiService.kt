@@ -1,7 +1,7 @@
 package com.aungmyolwin.splasher.api
 
 import com.aungmyolwin.splasher.vo.Photo
-import retrofit2.Response
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,5 +12,5 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("/photos")
-    suspend fun getPhoto(@Query("client_id") clientId: String): Response<List<Photo>>
+    fun getPhoto(@Query("client_id") clientId: String, @Query("per_page") perPage: Int = 20, @Query("page") page: Int): Call<List<Photo>>
 }

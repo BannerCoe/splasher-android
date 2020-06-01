@@ -24,7 +24,4 @@ abstract class PhotoListModule {
     @ViewModelKey(PhotoListViewModels::class)
     internal abstract fun bindPhotoListViewModel(vm: PhotoListViewModels): ViewModel
 
-    /*@Binds
-    @IntoMap
-    internal abstract fun binderAdapter(adapter: PhotoAdapter):RecyclerView.Adapter<RecyclerView.ViewHolder>*/
 }

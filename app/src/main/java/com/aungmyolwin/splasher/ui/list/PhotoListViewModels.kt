@@ -1,14 +1,10 @@
 package com.aungmyolwin.splasher.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.aungmyolwin.splasher.domain.photos.LoadAllPhotoUseCase
-import com.aungmyolwin.splasher.utils.Event
-import com.aungmyolwin.splasher.vo.Photo
-import com.aungmyolwin.splasher.vo.Result
-import kotlinx.coroutines.launch
+import androidx.paging.Config
+import androidx.paging.toLiveData
+import com.aungmyolwin.splasher.api.ApiService
+import com.aungmyolwin.splasher.data.photos.PhotoRemotePagingDataSourceFactory
 import javax.inject.Inject
 
 /**
@@ -16,28 +12,13 @@ import javax.inject.Inject
  *     made with <3
  */
 
-class PhotoListViewModels @Inject constructor(loadAllPhotoUseCase: LoadAllPhotoUseCase) : ViewModel() {
+class PhotoListViewModels @Inject constructor(api: ApiService) : ViewModel() {
 
-    lateinit var loading: LiveData<Boolean>
-    lateinit var photos: LiveData<List<Photo>?>
-    lateinit var errorMessage: LiveData<Event<String>>
+    private val photoRemotePagingDataSourceFactory = PhotoRemotePagingDataSourceFactory(api)
+    private val pagingConfig = Config(20, 60)
+    val photos = photoRemotePagingDataSourceFactory.toLiveData(pagingConfig, 0)
 
-    init {
-        viewModelScope.launch {
-            val result = loadAllPhotoUseCase.execute()
 
-            loading = Transformations.map(result) {
-                (it is Result.Loading)
-            }
-
-            photos = Transformations.map(result) {
-                (it as? Result.Success)?.data
-            }
-
-            errorMessage = Transformations.map(result) {
-                Event(content = (it as? Result.Error)?.exception?.localizedMessage ?: "")
-            }
-        }
-    }
+    fun refresh() = photoRemotePagingDataSourceFactory.photoRemotePagingDataSource.invalidate()
 
 }
